@@ -1,18 +1,27 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.alanecho.projectautocustomconfig</id>
+    <id>com.alan.plugin.projectautocustomconfig</id>
     <name>projectAutoCustomConfig</name>
-    <vendor>alan-echo</vendor>
+    <vendor>Alan</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.alanecho.projectautocustomconfig.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <backgroundPostStartupActivity id="MyProjectActivity"
+                                       implementation="com.alan.plugin.projectautocustomconfig.listener.MyProjectActivity"
+                                       order="last"/>
     </extensions>
+    <description><![CDATA[
+        <p>个人使用的插件，项目打开后自动将项目中默认的配置文件中指定的配置修改为指定的配置值</p>
+        <p>A plug-in for personal use that automatically modifies the configuration specified in the default configuration file in the project to the specified configuration value after the project is opened.</p>
+    ]]></description>
+    <change-notes><![CDATA[
+        <b>1.0.0</b>
+        <ul>
+            <li>root path配置</li>
+        </ul>
+    ]]></change-notes>
 
-    <applicationListeners>
-        <listener class="com.github.alanecho.projectautocustomconfig.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>
