@@ -16,6 +16,7 @@ public class ConfigModifier {
 
     /**
      * 修改配置文件中的指定配置项值，保持文件的原始顺序和注释。
+     * 如果新值和旧值相同，则不进行写操作。
      *
      * @param key   要修改的配置项的键
      * @param value 新的配置值
@@ -25,20 +26,43 @@ public class ConfigModifier {
         // 读取文件的所有行
         List<String> lines = Files.readAllLines(configFilePath);
 
-        // 修改特定的配置行
-        List<String> modifiedLines = lines.stream().map(line -> {
-            // 检查该行是否是目标配置项
+        // 查找指定的配置项并判断新值是否与当前值相同
+        boolean modified = false;
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
             if (line.startsWith(key + "=")) {
-                return key + "=" + value; // 更新该行的值
+                // 获取当前值
+                String currentValue = line.split(key + "=")[1].trim();
+                // 如果新值和当前值不同，才进行修改
+                if (!currentValue.equals(value)) {
+                    lines.set(i, key + "=" + value); // 更新该行的值
+                    modified = true;
+                }
+                break;
             }
-            return line; // 保持原行不变
-        }).toList();
+        }
 
-        // 将修改后的内容写回文件
+        // 如果配置项已被修改，才写回文件
+        if (modified) {
+            writeFile(lines);
+        }
+    }
+
+    /**
+     * 将修改后的内容写回文件，保持原文件的顺序和注释。
+     * @param lines 修改后的文件内容
+     * @throws IOException 如果写入文件时发生异常
+     */
+    private void writeFile(List<String> lines) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(configFilePath)) {
-            for (String line : modifiedLines) {
+            for (int i = 0; i < lines.size(); i++) {
+                String line = lines.get(i);
                 writer.write(line);
-                writer.newLine();
+
+                // 只有当不是最后一行时，才添加换行符
+                if (i < lines.size() - 1) {
+                    writer.newLine();
+                }
             }
         }
     }
@@ -48,7 +72,7 @@ public class ConfigModifier {
 //            // 示例：指定配置文件路径
 //            Path configFilePath = Path.of("path/to/your/config.properties");
 //
-//            // 初始化配置修改器并修改配置值
+//            // 初始化配置修改器并修改配置项
 //            ConfigModifier configModifier = new ConfigModifier(configFilePath);
 //            configModifier.modifyConfig("yourKey", "newValue");
 //
@@ -58,4 +82,3 @@ public class ConfigModifier {
 //        }
 //    }
 }
-

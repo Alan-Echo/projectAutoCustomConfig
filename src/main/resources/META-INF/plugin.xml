@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.alan.plugin.projectautocustomconfig</id>
     <name>projectAutoCustomConfig</name>
-    <vendor>Alan</vendor>
+    <vendor>AlanYeager</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -14,13 +14,17 @@
                                        order="last"/>
     </extensions>
     <description><![CDATA[
-        <p>个人使用的插件，项目打开后自动将项目中默认的配置文件中指定的配置修改为指定的配置值</p>
         <p>A plug-in for personal use that automatically modifies the configuration specified in the default configuration file in the project to the specified configuration value after the project is opened.</p>
-    ]]></description>
+        <p>个人使用的插件，项目打开后自动将项目中默认的配置文件中指定的配置修改为指定的配置值</p>
+]]></description>
     <change-notes><![CDATA[
         <b>1.0.0</b>
         <ul>
-            <li>root path配置</li>
+            <li>root path</li>
+        </ul>
+        <b>1.0.1</b>
+        <ul>
+            <li>代码优化</li>
         </ul>
     ]]></change-notes>
 
