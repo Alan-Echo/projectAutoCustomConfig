@@ -32,7 +32,11 @@ public class ConfigModifier {
             String line = lines.get(i);
             if (line.startsWith(key + "=")) {
                 // 获取当前值
-                String currentValue = line.split(key + "=")[1].trim();
+                String[] strings = line.split(key + "=");
+                String currentValue = "";
+                if (strings.length == 2) {
+                    currentValue = strings[1];
+                }
                 // 如果新值和当前值不同，才进行修改
                 if (!currentValue.equals(value)) {
                     lines.set(i, key + "=" + value); // 更新该行的值
