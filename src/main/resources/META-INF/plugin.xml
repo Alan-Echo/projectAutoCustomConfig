@@ -12,23 +12,33 @@
         <backgroundPostStartupActivity id="MyProjectActivity"
                                        implementation="com.alan.plugin.projectautocustomconfig.listener.MyProjectActivity"
                                        order="last"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.alan.plugin.projectautocustomconfig.configurable.MyApplicationSettingsConfigurable"
+                id="com.alan.plugin.projectautocustomconfig.configurable.MyApplicationSettingsConfigurable"
+                displayName="ProjectAutoCustomConfig"/>
+        <applicationService serviceImplementation="com.alan.plugin.projectautocustomconfig.state.MyPluginSettingsState"/>
     </extensions>
     <description><![CDATA[
         <p>A plug-in for personal use that automatically modifies the configuration specified in the default configuration file in the project to the specified configuration value after the project is opened.</p>
         <p>个人使用的插件，项目打开后自动将项目中默认的配置文件中指定的配置修改为指定的配置值</p>
 ]]></description>
     <change-notes><![CDATA[
-        <b>1.0.0</b>
+        <b>2.0.0</b>
         <ul>
-            <li>root path</li>
+            <li>增加自定义配置</li>
+        </ul>
+        <b>1.0.2</b>
+        <ul>
+            <li>代码优化</li>
         </ul>
         <b>1.0.1</b>
         <ul>
             <li>代码优化</li>
         </ul>
-        <b>1.0.2</b>
+        <b>1.0.0</b>
         <ul>
-            <li>代码优化</li>
+            <li>root path</li>
         </ul>
     ]]></change-notes>
 
