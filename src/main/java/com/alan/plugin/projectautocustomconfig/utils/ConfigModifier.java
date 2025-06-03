@@ -90,9 +90,15 @@ public class ConfigModifier {
                 // 如果新值和当前值不同，才进行修改
                 if (!currentValue.equals(newValue)) {
                     // 更新该行的值
-                    lines.set(i, key + "=" + newValue);
+                    lines.set(i,  String.format("%s=%s", key, newValue));
                     modifiedMap.put(key, newValue);
                 }
+            } else if (configEntries.containsKey(String.format("#%s", key))) {
+                // 注释配置项
+                String value = configEntries.getOrDefault(String.format("#%s", key), "");
+                lines.set(i, String.format("#%s=%s", key, value));
+                modifiedMap.put(key, value);
+                usedMap.put(key, value);
             }
         }
         // 过滤出未被使用的配置项，直接加入到文件中
